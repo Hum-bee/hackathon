@@ -28,7 +28,7 @@ app.get("/products/:id", (req, res) => {
     let id = req.params.id;
     dao.findProduct(id,
         (product) => {
-            console.log(product);
+            //console.log(product);
             if (!product) {
                 res.status(404).end();
             } else {
