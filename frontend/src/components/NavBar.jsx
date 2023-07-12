@@ -40,6 +40,11 @@ const NavBar = () => {
               <FontAwesomeIcon className="mx-auto" icon={faBookOpen} /> Products
             </Link>
           </Nav.Link>
+          <Nav.Link>
+            <Link to="/cart" style={{ color: "black", textDecoration: "none" }}>
+              <FontAwesomeIcon className="mx-auto" icon={faCartShopping} /> Cart
+            </Link>
+          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
