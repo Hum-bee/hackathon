@@ -1,4 +1,6 @@
 function HomePage() {
-  return <></>;
+  return <>
+        Welcome to Hardware Galore!
+      </>;
 }
 export default HomePage;
