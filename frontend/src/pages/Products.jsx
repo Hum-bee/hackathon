@@ -76,7 +76,6 @@ const Products = () => {
               <Col md={6} key={product._id}>
                 <Card
                   style={{
-                    height: "263px",
                     width: "25rem",
                     marginBottom: "20px",
                     backgroundColor: "#E99292",
