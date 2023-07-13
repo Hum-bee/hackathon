@@ -45,9 +45,7 @@ app.get("/products/:id", (req, res) => {
 });
 
 app.get("/randomProducts", (req, res) => {
-  console.log("test");
   dao.findProductRandom((products) => {
-    console.log(products);
     if (!products) {
       res.status(404).end();
     } else {
