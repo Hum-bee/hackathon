@@ -1,5 +1,5 @@
-import "./App.css";
-import { createBrowserRouter, Router, RouterProvider } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Products from "./pages/Products";
 import ProductPage from "./pages/ProductPage";
@@ -23,10 +23,6 @@ function App() {
   return (
     <div>
       <RouterProvider router={router} />
-      <header>
-        <a href="/">Hardware Store</a>
-      </header>
-      <main> List products </main>
     </div>
   );
 }
