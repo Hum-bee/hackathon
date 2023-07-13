@@ -20,9 +20,21 @@ startup();
 
 module.exports = {
   // retrieve all products
-  findAllProducts: function (callback) {
+
+  findAllProducts: function (searchTerm, filter, callback) {
     let collection = db.collection("products");
-    let dataPromise = collection.find({}).toArray();
+
+    let query = {};
+
+    if (searchTerm) {
+      query.PRODUCT_NAME = { $regex: new RegExp(searchTerm, "i") };
+    }
+
+    if (filter) {
+      query.CATEGORY_NAME = filter;
+    }
+
+    let dataPromise = collection.find(query).toArray();
     dataPromise.then((products) => callback(products));
   },
 

@@ -16,11 +16,18 @@ console.log(
 app.listen(port);
 
 app.get("/products", (req, res) => {
-  dao.findAllProducts((products) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 4;
+  const offset = (page - 1) * limit;
+  const searchTerm = req.query.searchTerm || "";
+  const filter = req.query.filter || "";
+
+  dao.findAllProducts(searchTerm, filter, (products) => {
     if (!products) {
       res.status(404).end();
     } else {
-      res.send(products);
+      const paginatedProducts = products.slice(offset, offset + limit);
+      res.send(paginatedProducts);
     }
   });
 });
