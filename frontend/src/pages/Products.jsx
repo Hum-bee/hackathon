@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Container, Card, Button, Form, Row, Col } from "react-bootstrap";
+import { CartContext } from "./CartContext";
 
 const Products = () => {
   console.log("Products component is rendered!");
@@ -9,6 +10,12 @@ const Products = () => {
   const [filter, setFilter] = useState("");
   const [page, setPage] = useState(1);
   const limit = 4;
+
+  const { setCartItems } = useContext(CartContext); // Use setCartItems from context
+
+  const addToCart = (product) => {
+    setCartItems((prevItems) => [...prevItems, product]);
+  };
 
   const fetchAllProducts = async () => {
     console.log("fetchAllProducts called");
@@ -100,7 +107,7 @@ const Products = () => {
                   </Card.Body>
                   <div className="d-flex justify-content-center" style={{ marginTop: "-30px", marginLeft: "10px" }}>
                   <Button variant="light" className="mt-3" style={{ marginRight: "5px", marginBottom: "5px"}}>View</Button>
-                  <Button variant="dark" className="mt-3" style={{ marginLeft: "5px", marginBottom: "5px"}}>Add to Cart</Button>
+                  <Button variant="dark" className="mt-3" style={{ marginLeft: "5px", marginBottom: "5px"}} onClick={() => addToCart(product)}>Add to Cart</Button>
                   </div>
                 </Card>
               </Col>
