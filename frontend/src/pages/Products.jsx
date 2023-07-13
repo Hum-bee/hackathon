@@ -76,6 +76,7 @@ const Products = () => {
               <Col md={6} key={product._id}>
                 <Card
                   style={{
+                    height: "263px",
                     width: "25rem",
                     marginBottom: "20px",
                     backgroundColor: "#E99292",
@@ -98,6 +99,10 @@ const Products = () => {
                       Country: {product.COUNTRY_NAME}
                     </Card.Text>
                   </Card.Body>
+                  <div className="d-flex justify-content-center" style={{ marginTop: "-30px", marginLeft: "10px" }}>
+                  <Button variant="light" className="mt-3" style={{ marginRight: "5px", marginBottom: "5px"}}>View</Button>
+                  <Button variant="dark" className="mt-3" style={{ marginLeft: "5px", marginBottom: "5px"}}>Add to Cart</Button>
+                  </div>
                 </Card>
               </Col>
             ))}
