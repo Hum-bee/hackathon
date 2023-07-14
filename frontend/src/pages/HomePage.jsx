@@ -7,8 +7,8 @@ function HomePage() {
 
   return (
     <>
-      <Header />
-      <Featured />
+    <div style={{ marginTop: "-25px "}}> <Header /> </div>
+    <div style={{ marginTop: "-10px "}}> <Featured /> </div>
     </>
   );
 }
