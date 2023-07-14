@@ -20,52 +20,17 @@ function Cart() {
   return (
     <div>
       <h1>Shopping Cart</h1>
-      <Col md={10}>
-        <ListGroup>
-          <Col md={4}>
-            <p> please work</p>
-          </Col>
-          <Col md={4}>
-            <h2> please</h2>
-          </Col>
-        </ListGroup>
-      </Col>
-
-      <Row>
-        <ListGroup>
-          {cartItems.map((item, index) => (
-            <Col md={6}>
-              <ListGroup.Item>
+      <Row className="d-flex">
+        <Col md={9}>
+          <ListGroup>
+            {cartItems.map((item, index) => (
+              <ListGroup.Item key={index}>
                 <Row className="align-items-center">
                   <Col md={9}>
                     <h4>
                       <b>{item.PRODUCT_NAME}</b>
                     </h4>
                   </Col>
-                  {/* <Col md={4}>
-                    <Button
-                      variant="light"
-                      onClick={handleClickMinus}
-                      disabled={count === 1}
-                    >
-                      {" "}
-                      <FontAwesomeIcon
-                        className="mx-auto"
-                        icon={faCircleMinus}
-                      />
-                    </Button>
-                    <span>{count}</span>{" "}
-                    <Button
-                      variant="light"
-                      onClick={handleClickPlus}
-                      disabled={count === item.QUANTITY}
-                    >
-                      <FontAwesomeIcon
-                        className="mx-auto"
-                        icon={faCirclePlus}
-                      />
-                    </Button>
-                  </Col> */}
                   <Col md={3}>
                     <Button
                       variant="light"
@@ -79,11 +44,11 @@ function Cart() {
                   <Col md={3}>Price: ${item.LIST_PRICE}</Col>
                 </Row>
               </ListGroup.Item>
-            </Col>
-          ))}
-        </ListGroup>
+            ))}
+          </ListGroup>
+        </Col>
         <Col md={3}>
-          <Card>
+          <Card style={{ marginRight: "15px" }}>
             <Card.Body>
               <ListGroup variant="flush">
                 <h3>Subtotal: ${total}</h3>
