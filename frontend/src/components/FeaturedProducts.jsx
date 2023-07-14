@@ -92,14 +92,6 @@ const Featured = () => {
                         View
                       </Button>
                     </Link>
-                    <Button
-                      variant="dark"
-                      className="mt-3"
-                      style={{ marginLeft: "5px", marginBottom: "5px" }}
-                      onClick={() => addToCart(product)}
-                    >
-                      Add to Cart
-                    </Button>
                   </div>
                 </Card>
               </Col>
