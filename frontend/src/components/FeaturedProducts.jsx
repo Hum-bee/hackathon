@@ -1,8 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Container, Card, Button, Form, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { CartContext } from "../pages/CartContext";
 
 const Featured = () => {
-  console.log("Products component is rendered!");
+  const { setCartItems } = useContext(CartContext); // Use setCartItems from context
+
+  const addToCart = (product) => {
+    setCartItems((prevItems) => [...prevItems, product]);
+  };
 
   useEffect(() => {
     fetchAllProducts();
@@ -48,7 +54,6 @@ const Featured = () => {
               <Col md={4} key={product._id}>
                 <Card
                   style={{
-                    height: "12rem",
                     width: "25rem",
                     marginBottom: "20px",
                     backgroundColor: "#E99292",
@@ -60,14 +65,34 @@ const Featured = () => {
                       {product.CATEGORY_NAME}
                     </Card.Subtitle>
                     <Card.Text>
-                      {product.DESCRIPTION}
-                      <br />
-                      Standard Cost: {product.STANDARD_COST}
-                      <br />
                       List Price: {product.LIST_PRICE}
+                      <br />
+                      {product.DESCRIPTION.split(",").map((item, key) => {
+                        let formattedItem = item.replace(":", ": ");
+                        return (
+                          <span key={key}>
+                            {formattedItem}
+                            <br />
+                          </span>
+                        );
+                      })}
                       <br />
                     </Card.Text>
                   </Card.Body>
+                  <div
+                    className="d-flex justify-content-center"
+                    style={{ marginTop: "-50px", marginLeft: "10px" }}
+                  >
+                    <Link to={`/products/${product.PRODUCT_ID}`}>
+                      <Button
+                        variant="light"
+                        className="mt-3"
+                        style={{ marginRight: "5px", marginBottom: "5px" }}
+                      >
+                        View
+                      </Button>
+                    </Link>
+                  </div>
                 </Card>
               </Col>
             ))}

@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { Container, Card, Button, Form, Row, Col } from "react-bootstrap";
 import { CartContext } from "./CartContext";
+import { Link } from "react-router-dom";
 
 const Products = () => {
   console.log("Products component is rendered!");
@@ -20,21 +21,23 @@ const Products = () => {
   const fetchAllProducts = async () => {
     console.log("fetchAllProducts called");
     try {
-      const response = await fetch(`http://localhost:5000/products?page=${page}&limit=${limit}&searchTerm=${searchTerm}&filter=${filter}`);
+      const response = await fetch(
+        `http://localhost:5000/products?page=${page}&limit=${limit}&searchTerm=${searchTerm}&filter=${filter}`
+      );
       const data = await response.json();
       setProducts(data);
     } catch (error) {
       console.log("Error fetching products: ", error);
     }
   };
-  
+
   const nextPage = () => {
     setPage(page + 1);
-  }
+  };
 
   const prevPage = () => {
     setPage(page - 1);
-  }
+  };
 
   useEffect(() => {
     fetchAllProducts();
@@ -52,7 +55,13 @@ const Products = () => {
     <Container fluid>
       <Row>
         <Col md={4}>
-          <Container style={{ backgroundColor: "#E1E1CA", padding: "15px", marginTop: "20px" }}>
+          <Container
+            style={{
+              backgroundColor: "#E1E1CA",
+              padding: "15px",
+              marginTop: "20px",
+            }}
+          >
             <Form style={{ backgroundColor: "f0f0f0" }}>
               <Form.Group controlId="formSearch">
                 <Form.Label>Search</Form.Label>
@@ -62,7 +71,7 @@ const Products = () => {
                   onChange={handleSearch}
                 />
               </Form.Group>
-              <Form.Group controlId="formFilter" style={{ marginTop: '5px' }}>
+              <Form.Group controlId="formFilter" style={{ marginTop: "5px" }}>
                 <Form.Label>Filter by Category</Form.Label>
                 <Form.Control as="select" onChange={handleFilter}>
                   <option value="">All</option>
@@ -73,8 +82,19 @@ const Products = () => {
                 </Form.Control>
               </Form.Group>
             </Form>
-            <Button onClick={prevPage} disabled={page === 1} style={{ marginRight: "3px", marginTop: "7px" }}>Previous</Button>
-            <Button onClick={nextPage} style={{ marginLeft: "3px", marginTop: "7px" }}>Next</Button> 
+            <Button
+              onClick={prevPage}
+              disabled={page === 1}
+              style={{ marginRight: "3px", marginTop: "7px" }}
+            >
+              Previous
+            </Button>
+            <Button
+              onClick={nextPage}
+              style={{ marginLeft: "3px", marginTop: "7px" }}
+            >
+              Next
+            </Button>
           </Container>
         </Col>
         <Col md={8}>
@@ -94,20 +114,41 @@ const Products = () => {
                       {product.CATEGORY_NAME}
                     </Card.Subtitle>
                     <Card.Text>
-                      {product.DESCRIPTION}
-                      <br />
                       List Price: {product.LIST_PRICE}
                       <br />
-                      Quantity: {product.QUANTITY}
+                      {product.DESCRIPTION.split(",").map((item, key) => {
+                        let formattedItem = item.replace(":", ": ");
+                        return (
+                          <span key={key}>
+                            {formattedItem}
+                            <br />
+                          </span>
+                        );
+                      })}
                       <br />
-                      City: {product.CITY}
-                      <br />
-                      Country: {product.COUNTRY_NAME}
                     </Card.Text>
                   </Card.Body>
-                  <div className="d-flex justify-content-center" style={{ marginTop: "-30px", marginLeft: "10px" }}>
-                  <Button variant="light" className="mt-3" style={{ marginRight: "5px", marginBottom: "5px"}}>View</Button>
-                  <Button variant="dark" className="mt-3" style={{ marginLeft: "5px", marginBottom: "5px"}} onClick={() => addToCart(product)}>Add to Cart</Button>
+                  <div
+                    className="d-flex justify-content-center"
+                    style={{ marginTop: "-50px", marginLeft: "10px" }}
+                  >
+                    <Link to={`/products/${product.PRODUCT_ID}`}>
+                      <Button
+                        variant="light"
+                        className="mt-3"
+                        style={{ marginRight: "5px", marginBottom: "5px" }}
+                      >
+                        View
+                      </Button>
+                    </Link>
+                    <Button
+                      variant="dark"
+                      className="mt-3"
+                      style={{ marginLeft: "5px", marginBottom: "5px" }}
+                      onClick={() => addToCart(product)}
+                    >
+                      Add to Cart
+                    </Button>
                   </div>
                 </Card>
               </Col>
