@@ -31,7 +31,7 @@ function Cart() {
                       <b>{item.PRODUCT_NAME}</b>
                     </h4>
                   </Col>
-                  <Col md={3}>
+                  <Col md={3} className="d-flex justify-content-end">
                     <Button
                       variant="light"
                       onClick={() => removeFromCart(item)}
