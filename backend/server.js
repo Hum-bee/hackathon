@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+let { PythonShell } = require("python-shell");
 var dao = require("./actions/api");
 
 const app = express();
@@ -51,5 +52,39 @@ app.get("/randomProducts", (req, res) => {
     } else {
       res.send(products);
     }
+  });
+});
+
+app.get("/products/:id/:wid", (req, res) => {
+  let id = req.params.id;
+  let wid = req.params.wid;
+  dao.findSimilarProducts(id, wid, (products) => {
+    //console.log(product);
+    if (!products) {
+      res.status(404).end();
+    } else {
+      res.send(products);
+    }
+  });
+});
+
+app.get("/recommended", (req, res, next) => {
+  let pyshell = new PythonShell("./model/python_test.py");
+
+  // sends a message to the Python script via stdin
+  pyshell.send("hello");
+
+  pyshell.on("message", function (message) {
+    // received a message sent from the Python script (a simple "print" statement)
+    console.log(message);
+    res.send(message.toString());
+  });
+
+  // end the input stream and allow the process to exit
+  pyshell.end(function (err, code, signal) {
+    if (err) throw err;
+    console.log("The exit code was: " + code);
+    console.log("The exit signal was: " + signal);
+    console.log("finished");
   });
 });

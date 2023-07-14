@@ -52,4 +52,16 @@ module.exports = {
       .toArray();
     dataPromise.then((product) => callback(product));
   },
+
+  // retrieve random products
+  findSimilarProducts: function (CATEGORY_ID, WAREHOUSE_ID, callback) {
+    let collection = db.collection("products");
+    let dataPromise = collection
+      .find({
+        CATEGORY_ID: +CATEGORY_ID,
+        WAREHOUSE_ID: +WAREHOUSE_ID,
+      })
+      .toArray();
+    dataPromise.then((products) => callback(products));
+  },
 };
