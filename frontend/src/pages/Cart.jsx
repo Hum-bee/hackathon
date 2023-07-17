@@ -4,8 +4,8 @@ import { CartContext } from "./CartContext";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCirclePlus,
-  faCircleMinus,
+  // faCirclePlus,
+  // faCircleMinus,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -19,39 +19,43 @@ function Cart() {
 
   return (
     <div>
-      <h1>Shopping Cart</h1>
-      <Row className="d-flex">
-        <Col md={9}>
-          <ListGroup>
-            {cartItems.map((item, index) => (
-              <ListGroup.Item key={index}>
-                <Row className="align-items-center">
-                  <Col md={9}>
-                    <h4>
-                      <b>{item.PRODUCT_NAME}</b>
-                    </h4>
-                  </Col>
-                  <Col md={3} className="d-flex justify-content-end">
-                    <Button
-                      variant="light"
-                      onClick={() => removeFromCart(item)}
-                    >
-                      <FontAwesomeIcon className="mx-auto" icon={faTrash} />
-                    </Button>
-                  </Col>
-                </Row>
-                <Row className="align-item-center">
-                  <Col md={3}>Price: ${item.LIST_PRICE}</Col>
-                </Row>
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
+      <Row className="d-flex" style={{marginTop: "15px" }}>
+        <Col md={6} style={{ marginLeft: "10px"}}>
+          <h3>Shopping Cart</h3>
+          <Card style={{ height: '50vh', overflowY: 'scroll', backgroundColor: "#E1E1CA" }}>
+            <Card.Body>
+              <ListGroup>
+                {cartItems.map((item, index) => (
+                  <ListGroup.Item key={index}>
+                    <Row className="align-items-center">
+                      <Col md={9}>
+                        <h5>
+                          <b>{item.PRODUCT_NAME}</b>
+                        </h5>
+                      </Col>
+                      <Col md={3} className="d-flex justify-content-end">
+                        <Button
+                          variant="light"
+                          onClick={() => removeFromCart(item)}
+                        >
+                          <FontAwesomeIcon className="mx-auto" icon={faTrash} />
+                        </Button>
+                      </Col>
+                    </Row>
+                    <Row className="align-item-center">
+                      <Col md={3}>Price: ${item.LIST_PRICE}</Col>
+                    </Row>
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
+            </Card.Body>
+          </Card>
         </Col>
-        <Col md={3}>
-          <Card style={{ marginRight: "15px" }}>
+        <Col md={5}>
+          <Card style={{ marginRight: "35px", float: "right", backgroundColor: "#DAF1F5", }}>
             <Card.Body>
               <ListGroup variant="flush">
-                <h3>Subtotal: ${total}</h3>
+                <h3>Subtotal: ${total.toFixed(2)}</h3>
               </ListGroup>
               <ListGroup.Item>
                 <div className="d-grid">
