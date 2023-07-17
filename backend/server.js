@@ -45,7 +45,7 @@ app.get("/products/:id", (req, res) => {
       }
     });
   });
-  
+
 app.get("/randomProducts", (req, res) => {
   dao.findProductRandom((products) => {
     if (!products) {
@@ -55,3 +55,16 @@ app.get("/randomProducts", (req, res) => {
     }
   });
 });
+
+app.post("/orders", (req, res) => {
+    const order = req.body;
+  
+    dao.createOrder(order, (err, orderId) => {
+      if (err) {
+        console.error(err);
+        res.status(500).end();
+      } else {
+        res.send({ orderId });
+      }
+    });
+  });

@@ -6,6 +6,11 @@ import { useNavigate } from "react-router-dom";
 function Checkout() {
   const { cartItems, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
+
+  let total = 0;
+
+  cartItems.map((item) => (total += item.LIST_PRICE));
+
   
   const [formFields, setFormFields] = useState({
     shippingAddressL1: '',
@@ -31,21 +36,45 @@ function Checkout() {
       return;
     }
 
-    // Reset fields and clear cart
-    setError(null);
-    setFormFields({
-      shippingAddressL1: '',
-      shippingAddressL2: '',
-      shippingCity: '',
-      shippingZip: '',
-      nameOnCard: '',
-      cardNumber: '',
-      expirationDate: '',
-      cvv: '',
-    });
-    clearCart();
-    alert("Order has been placed!");
-    navigate("/");
+    const order = {
+        shippingAddress: formFields.shippingAddressL1 + ' ' + formFields.shippingAddressL2 + ', ' + formFields.shippingCity + ', ' + formFields.shippingZip,
+        nameOnCard: formFields.nameOnCard,
+        cardNumber: formFields.cardNumber.slice(-4), // We store only the last 4 digits
+        subtotal: total.toFixed(2),
+    };
+
+    fetch(`http://localhost:5000/orders`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(order),
+    })
+    .then(response => response.json())
+    .then(data => {
+
+        console.log("Order created with id:", data.orderId)
+
+        // We reset the fields and clear the cart
+        setError(null);
+        setFormFields({
+        shippingAddressL1: '',
+        shippingAddressL2: '',
+        shippingCity: '',
+        shippingZip: '',
+        nameOnCard: '',
+        cardNumber: '',
+        expirationDate: '',
+        cvv: '',
+        });
+        clearCart();
+        alert("Order has been placed!");
+        // We navigate back to the home screen
+        navigate("/");
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    }); 
   };
 
   return (
