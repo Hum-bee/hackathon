@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Container, Card, Button } from "react-bootstrap";
+import { Container, Card, Button, Alert } from "react-bootstrap";
 import { CartContext } from "./CartContext";
 import { useParams } from "react-router-dom";
 
@@ -7,6 +7,7 @@ const ProductPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const { setCartItems } = useContext(CartContext);
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -24,10 +25,12 @@ const ProductPage = () => {
 
   const addToCart = () => {
     setCartItems((prevItems) => [...prevItems, product]);
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 2000); // We set alert to timeout after 2 seconds
   };
 
   return (
-    <Container
+    <Container fluid
       style={{
         display: "flex",
         justifyContent: "center",
@@ -68,6 +71,10 @@ const ProductPage = () => {
             <br />
             Warehouse: {product.WAREHOUSE_NAME}
             <br />
+            Warehouse ID: {product.WAREHOUSE_ID}
+            <br />
+            Location ID: {product.LOCATION_ID}
+            <br />
             Address: {product.ADDRESS}
             <br />
             Postal Code: {product.POSTAL_CODE}
@@ -79,6 +86,9 @@ const ProductPage = () => {
           </Button>
         </Card.Body>
       </Card>
+      <div style={{ marginLeft: "25px" }}>
+        {showAlert && <Alert variant="success">Item added to cart!</Alert>}
+      </div>
     </Container>
   );
 };

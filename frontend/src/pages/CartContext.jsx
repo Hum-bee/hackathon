@@ -6,12 +6,16 @@ export const CartProvider = (props) => {
 
   const [cartItems, setCartItems] = useState([]);
 
-  const removeFromCart = (productToRemove) => {
-    setCartItems(cartItems.filter(product => product._id != productToRemove._id));
+  const clearCart = () => {
+    setCartItems([]);
   }
 
+  const removeFromCart = (productToRemove) => {
+    setCartItems(cartItems.filter(product => product._id !== productToRemove._id));
+  }
+  
   return (
-    <CartContext.Provider value={{ cartItems, setCartItems, removeFromCart }}>
+    <CartContext.Provider value={{ cartItems, setCartItems, removeFromCart, clearCart }}>
       {props.children}
     </CartContext.Provider>
   );

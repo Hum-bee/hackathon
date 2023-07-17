@@ -1,5 +1,13 @@
 import { useState, useEffect, useContext } from "react";
-import { Container, Card, Button, Form, Row, Col } from "react-bootstrap";
+import {
+  Container,
+  Card,
+  Button,
+  Form,
+  Row,
+  Col,
+  Alert,
+} from "react-bootstrap";
 import { CartContext } from "./CartContext";
 import { Link } from "react-router-dom";
 
@@ -10,12 +18,15 @@ const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("");
   const [page, setPage] = useState(1);
+  const [showAlert, setShowAlert] = useState(false);
   const limit = 4;
 
   const { setCartItems } = useContext(CartContext); // Use setCartItems from context
 
   const addToCart = (product) => {
     setCartItems((prevItems) => [...prevItems, product]);
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 2000); // We set alert to timeout after 2 seconds
   };
 
   const fetchAllProducts = async () => {
@@ -32,7 +43,10 @@ const Products = () => {
   };
 
   const nextPage = () => {
-    setPage(page + 1);
+    if (products.length === limit) {
+      // We try to disable "Next" button when < 4 products are returned.
+      setPage(page + 1);
+    }
   };
 
   const prevPage = () => {
@@ -96,6 +110,9 @@ const Products = () => {
               Next
             </Button>
           </Container>
+          <div style={{ marginTop: "25px" }}>
+          {showAlert && <Alert variant="success">Item added to cart!</Alert>}
+          </div>
         </Col>
         <Col md={8}>
           <Row style={{ marginTop: "20px" }}>
@@ -132,7 +149,7 @@ const Products = () => {
                     className="d-flex justify-content-center"
                     style={{ marginTop: "-50px", marginLeft: "10px" }}
                   >
-                    <Link to={`/products/${product.PRODUCT_ID}`}>
+                    <Link to={`/products/${product._id}`}>
                       <Button
                         variant="light"
                         className="mt-3"

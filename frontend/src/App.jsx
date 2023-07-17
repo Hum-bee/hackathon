@@ -10,6 +10,8 @@ import ShippingAddressPage from "./pages/ShippingAddressPage";
 import CreditCard from "./pages/CreditCard";
 import React from "react";
 import ThankYou from "./pages/ThankYou";
+import Checkout from "./pages/Checkout";
+
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,7 @@ const router = createBrowserRouter([
       { path: "/products", element: <Products /> },
       { path: "/products/:id", element: <ProductPage /> },
       { path: "/cart", element: <Cart /> },
+      { path: "/checkout", element: <Checkout /> },
       { path: "/cart/ShippingAddress", element: <ShippingAddressPage /> },
       { path: "/cart/CreditCard", element: <CreditCard /> },
       { path: "/cart/ThankYou", element: <ThankYou /> },

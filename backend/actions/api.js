@@ -1,5 +1,5 @@
 const mongodb = require("mongodb"); // mongo client library
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 
 const url = "mongodb://localhost:27017";
 const dbName = "onlinestore";
@@ -37,14 +37,14 @@ module.exports = {
     dataPromise.then((products) => callback(products));
   },
 
-  // retrieve one film
+  // retrieve one product
   findProduct: function (id, callback) {
     let collection = db.collection("products");
-    let dataPromise = collection.findOne({ PRODUCT_ID: +id });
+    let dataPromise = collection.findOne({ _id: new ObjectId(id) });
     dataPromise.then((product) => callback(product));
   },
-
-  // retrieve random products
+  
+    // retrieve random products
   findProductRandom: function (callback) {
     let collection = db.collection("products");
     let dataPromise = collection
