@@ -52,4 +52,17 @@ module.exports = {
       .toArray();
     dataPromise.then((product) => callback(product));
   },
+
+  // create one order
+  createOrder: async function (order, callback) {
+    let collection = db.collection("orders");
+
+    try {
+      const result = await collection.insertOne(order);
+      callback(null, result.insertedId);
+    } catch (err) {
+      callback(err);
+    }
+  }
+
 };
