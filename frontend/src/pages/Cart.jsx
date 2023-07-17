@@ -52,7 +52,7 @@ function Cart() {
           </Card>
         </Col>
         <Col md={5}>
-          <Card style={{ marginRight: "35px", float: "right", backgroundColor: "#DAF1F5", }}>
+          <Card style={{ marginRight: "35px", marginTop: "40px", float: "right", backgroundColor: "#DAF1F5", }}>
             <Card.Body>
               <ListGroup variant="flush">
                 <h3>Subtotal: ${total.toFixed(2)}</h3>
@@ -63,7 +63,7 @@ function Cart() {
                     type="button"
                     variant="primary"
                     disabled={cartItems.length === 0}
-                    onClick={() => navigate("/cart/ShippingAddress")}
+                    onClick={() => navigate("/checkout")}
                   >
                     Proceed to Checkout
                   </Button>
