@@ -149,7 +149,7 @@ const Products = () => {
                     className="d-flex justify-content-center"
                     style={{ marginTop: "-50px", marginLeft: "10px" }}
                   >
-                    <Link to={`/products/${product.PRODUCT_ID}`}>
+                    <Link to={`/products/${product._id}`}>
                       <Button
                         variant="light"
                         className="mt-3"
