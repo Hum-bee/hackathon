@@ -21,7 +21,7 @@ const ProductPage = () => {
 
     fetchProduct();
   }, [id]);
-
+ 
   const addToCart = () => {
     setCartItems((prevItems) => [...prevItems, product]);
   };
@@ -67,6 +67,10 @@ const ProductPage = () => {
             Country: {product.COUNTRY_NAME}
             <br />
             Warehouse: {product.WAREHOUSE_NAME}
+            <br />
+            Warehouse ID: {product.WAREHOUSE_ID}
+            <br />
+            Location ID: {product.LOCATION_ID}
             <br />
             Address: {product.ADDRESS}
             <br />
