@@ -22,7 +22,7 @@ function Cart() {
       <Row className="d-flex" style={{marginTop: "15px" }}>
         <Col md={6} style={{ marginLeft: "10px"}}>
           <h3>Shopping Cart</h3>
-          <Card style={{ height: '50vh', overflowY: 'scroll', backgroundColor: "#E1E1CA" }}>
+          <Card style={{ height: '75vh', overflowY: 'scroll', backgroundColor: "#E1E1CA" }}>
             <Card.Body>
               <ListGroup>
                 {cartItems.map((item, index) => (
@@ -52,7 +52,7 @@ function Cart() {
           </Card>
         </Col>
         <Col md={5}>
-          <Card style={{ marginRight: "35px", marginTop: "40px", float: "right", backgroundColor: "#DAF1F5", }}>
+          <Card style={{ marginRight: "65px", marginTop: "40px", float: "right", backgroundColor: "#DAF1F5", }}>
             <Card.Body>
               <ListGroup variant="flush">
                 <h3>Subtotal: ${total.toFixed(2)}</h3>
