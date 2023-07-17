@@ -16,4 +16,4 @@ with open("C:\\Workspace\\hackathon\\backend\\model\\knn_model.sav", 'rb') as f:
 # loaded_model = pickle.load(filename)
     loaded_model = pickle.load(f)
     test_pred = loaded_model.predict(testdf)
-print("Pred Category: ", test_pred[0] )
+print( test_pred[0] )
